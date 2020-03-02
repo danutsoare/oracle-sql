@@ -1,3 +1,11 @@
+/*
+#
+#       Script pentru micsorarea datafile-urilor.
+#       Autor: Franck Pachot
+#       Versiune: 01
+#
+*/
+
 set linesize 1000 pagesize 0 feedback off trimspool on
 with
 hwm as (
