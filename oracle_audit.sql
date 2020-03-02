@@ -1,3 +1,12 @@
+/*
+#
+#       Script pentru crearea politicilor de audit.
+#       Autor: Danut Soare
+#       Versiune: 01
+#
+*/
+
+
 ==================================================
 -- Audit setup
 
@@ -69,6 +78,8 @@ END;
 -- Manage audit policies
 
 
+-- Create audit policy
+
 CREATE AUDIT POLICY test_audit_policy
   ACTIONS DROP TABLE,CREATE TABLE
   WHEN    'SYS_CONTEXT(''USERENV'', ''SESSION_USER'') = ''DAN'''
@@ -76,7 +87,13 @@ CREATE AUDIT POLICY test_audit_policy
   CONTAINER = CURRENT;
 
 
+
+-- Enable audit policy. 
+
 AUDIT POLICY test_audit_policy;
+
+
+-- Check conditions.
 
 SET LINESIZE 200
 COLUMN audit_option FORMAT A15
@@ -90,6 +107,8 @@ FROM   audit_unified_policies
 WHERE  policy_name = 'TEST_AUDIT_POLICY';
 
 
+
+-- Check audit table
 SELECT event_timestamp,
        dbusername,
        action_name,
@@ -100,6 +119,10 @@ WHERE  dbusername = 'DAN'
 ORDER BY event_timestamp;
 
 
+-- Disable audit policy
+
 NOAUDIT POLICY test_audit_policy;
+
+-- Drop audit policy
 
 DROP AUDIT POLICY test_audit_policy;
