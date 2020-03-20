@@ -10,6 +10,10 @@
 ==================================================
 -- Audit setup
 
+select count(*) from AUDSYS.AUD$UNIFIED;
+select count(*) from v$unified_audit_trail;
+select audit_type,DBUSERNAME,OS_USERNAME,ACTION_NAME,OBJECT_NAME,sql_text from UNIFIED_AUDIT_TRAIL;
+
 
 -- Switched to queued-write.
 BEGIN
